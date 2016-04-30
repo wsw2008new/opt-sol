@@ -43,6 +43,9 @@ public class APISearchResult implements Serializable {
     // 服务作者
     private String author;
 
+    // 接口最新版本号
+    private String version;
+
     // 服务异常
     private String exceptions;
 
@@ -274,14 +277,6 @@ public class APISearchResult implements Serializable {
         this.isSetted = isSetted;
     }
 
-    public List<APIVersion> getApiVersions() {
-        return apiVersions;
-    }
-
-    public void setApiVersions(List<APIVersion> apiVersions) {
-        this.apiVersions = apiVersions;
-    }
-
     public boolean isRestSupported() {
         return restSupported;
     }
@@ -328,6 +323,22 @@ public class APISearchResult implements Serializable {
 
     public void setAllowDelete(boolean isAllowDelete) {
         this.isAllowDelete = isAllowDelete;
+    }
+
+    public String getVersion() {
+        return version;
+    }
+
+    public void setVersion(String version) {
+        this.version = version;
+    }
+
+    public List<APIVersion> getApiVersions() {
+        return apiVersions;
+    }
+
+    public void setApiVersions(List<APIVersion> apiVersions) {
+        this.apiVersions = apiVersions;
     }
 
 }
