@@ -12,7 +12,7 @@ public final class APIESProcessor {
 
     private static APIESProcessor INSTANCE = null;
 
-    private static final String ES_CONFIG = "/context/esconfig.properties";
+    private static final String ES_CONFIG = "context/esconfig.properties";
 
     private ESConfig esconfig = null;
 
@@ -40,7 +40,7 @@ public final class APIESProcessor {
     }
 
     private void loadESConfig() {
-        InputStream is = APIESProcessor.class.getClassLoader().getResourceAsStream(
+        InputStream is = this.getClass().getClassLoader().getResourceAsStream(
                 ES_CONFIG);
         Properties prop = new Properties();
         try {
@@ -71,6 +71,10 @@ public final class APIESProcessor {
     public ElasticSearchHandler getElasticSearchHandler() {
         ElasticSearchHandler searcher = new ElasticSearchHandler(esconfig);
         return searcher;
+    }
+    
+    public static void main(String[] agrs){
+        APIESProcessor.getInstance().getElasticSearchHandler();
     }
 
 }

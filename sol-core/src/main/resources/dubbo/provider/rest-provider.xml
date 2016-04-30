@@ -20,15 +20,15 @@
 		<property name="locations" value="classpath:dubbo/dubbo.properties" />
 	</bean>
 
-	<dubbo:application name="runner-osp" />
+	<dubbo:application name="opt-sol" />
 	<dubbo:registry protocol="zookeeper"
-		address="${osp.rest.registry.address}" file="./runner-osp-rest-registry.cache" />
+		address="${rest.registry.address}" file="./opt-sol-rest-registry.cache" />
 
-	<dubbo:protocol name="rest" port="${osp.rest.protocol.port}"
-		server="${osp.rest.server}" contextpath="${osp.rest.contextpath}"
+	<dubbo:protocol name="rest" port="${rest.protocol.port}"
+		server="${rest.server}" contextpath="${rest.contextpath}"
 		extension="com.ai.runner.utils.extension.DubboRestExceptionMapper,com.ai.runner.utils.extension.DubboRestResponseFilter" />
-	<dubbo:provider filter="DubboRequestTrackFilter" timeout="${osp.rest.provider.timeout}"
-		retries="0" threads="${osp.rest.provider.threads}" />
+	<dubbo:provider filter="DubboRequestTrackFilter" timeout="${rest.provider.timeout}"
+		retries="0" threads="${rest.provider.threads}" />
 
 	<dubbo:annotation package="com.ai.opt.sol.api" />
 

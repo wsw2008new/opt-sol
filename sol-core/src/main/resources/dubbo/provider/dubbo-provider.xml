@@ -20,13 +20,13 @@
 		<property name="locations" value="classpath:dubbo/dubbo.properties" />
 	</bean>
 
-	<dubbo:application name="runner-osp" />
-	<dubbo:registry protocol="zookeeper" address="${osp.dubbo.registry.address}"
-		file="./runner-osp-dubbo-registry.cache" />
-	<dubbo:protocol name="dubbo" port="${osp.dubbo.protocol.port}" />
+	<dubbo:application name="opt-sol" />
+	<dubbo:registry protocol="zookeeper" address="${dubbo.registry.address}"
+		file="./opt-sol-dubbo-registry.cache" />
+	<dubbo:protocol name="dubbo" port="${dubbo.protocol.port}" />
 	<dubbo:provider filter="DubboRequestTrackFilter"
-		timeout="${osp.dubbo.provider.timeout}" retries="0"
-		threads="${osp.dubbo.provider.threads}" />
+		timeout="${dubbo.provider.timeout}" retries="0"
+		threads="${dubbo.provider.threads}" />
 	<dubbo:monitor protocol="registry" />
 	<dubbo:annotation package="com.ai.opt.sol.api" />
 
