@@ -4,7 +4,7 @@ allprojects {
     apply plugin: 'maven-publish'
 
     ext {        
-        moduleVersion = "1.0-SNAPSHOT"
+        moduleVersion = "2.0-SNAPSHOT"
         runnerBaseVersion = "1.0-SNAPSHOT"
         builtBy = "gradle 2.2"
         publishUserName = "runnerdev"
