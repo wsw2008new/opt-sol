@@ -40,8 +40,7 @@ public final class APIESProcessor {
     }
 
     private void loadESConfig() {
-        InputStream is = this.getClass().getClassLoader().getResourceAsStream(
-                ES_CONFIG);
+        InputStream is = this.getClass().getClassLoader().getResourceAsStream(ES_CONFIG);
         Properties prop = new Properties();
         try {
             prop.load(is);
@@ -50,6 +49,7 @@ public final class APIESProcessor {
         }
         String host = prop.getProperty("host");
         String port = prop.getProperty("port");
+        String clusterName = prop.getProperty("clusterName");
         if (StringUtil.isBlank(host)) {
             throw new RuntimeException("esconfig missing host");
         }
@@ -57,9 +57,14 @@ public final class APIESProcessor {
         if (StringUtil.isBlank(port)) {
             throw new RuntimeException("esconfig missing port");
         }
+
+        if (StringUtil.isBlank(clusterName)) {
+            throw new RuntimeException("esconfig missing clusterName");
+        }
         esconfig = new ESConfig();
         esconfig.setIp(host);
         esconfig.setPort(Integer.parseInt(port));
+        esconfig.setClusterName(clusterName);
     }
 
     /**
@@ -72,8 +77,8 @@ public final class APIESProcessor {
         ElasticSearchHandler searcher = new ElasticSearchHandler(esconfig);
         return searcher;
     }
-    
-    public static void main(String[] agrs){
+
+    public static void main(String[] agrs) {
         APIESProcessor.getInstance().getElasticSearchHandler();
     }
 
