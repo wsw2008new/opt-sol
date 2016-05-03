@@ -10,37 +10,29 @@ import com.ai.runner.apicollector.vo.ESConfig;
 
 public final class APIESProcessor {
 
-    private static APIESProcessor INSTANCE = null;
+    private static ElasticSearchHandler ESHANDLER = null;
 
     private static final String ES_CONFIG = "context/esconfig.properties";
-
-    private ESConfig esconfig = null;
 
     private APIESProcessor() {
         // 禁止实例化
     }
 
-    /**
-     * 获取配置加载器单例实例，确保多线程并发情况下高效读取，避免INSTANCE引用指向不同的实例对象
-     * 
-     * @return
-     * @author zhangchao
-     */
-    public static APIESProcessor getInstance() {
-        if (INSTANCE == null) {
-            synchronized (APIESProcessor.class) {
-                if (INSTANCE == null) {
-                    INSTANCE = new APIESProcessor();
-                    INSTANCE.loadESConfig();
+    public static ElasticSearchHandler getElasticSearchHandler() {
+        if (ESHANDLER == null) {
+            synchronized (ElasticSearchHandler.class) {
+                if (ESHANDLER == null) {
+                    ESConfig esconfig = loadESConfig();
+                    ESHANDLER = new ElasticSearchHandler(esconfig);
                 }
             }
         }
-        return INSTANCE;
+        return ESHANDLER;
 
     }
 
-    private void loadESConfig() {
-        InputStream is = this.getClass().getClassLoader().getResourceAsStream(ES_CONFIG);
+    private static ESConfig loadESConfig() {
+        InputStream is = APIESProcessor.class.getClassLoader().getResourceAsStream(ES_CONFIG);
         Properties prop = new Properties();
         try {
             prop.load(is);
@@ -61,25 +53,20 @@ public final class APIESProcessor {
         if (StringUtil.isBlank(clusterName)) {
             throw new RuntimeException("esconfig missing clusterName");
         }
-        esconfig = new ESConfig();
+        ESConfig esconfig = new ESConfig();
         esconfig.setIp(host);
         esconfig.setPort(Integer.parseInt(port));
         esconfig.setClusterName(clusterName);
-    }
-
-    /**
-     * 获取搜索器
-     * 
-     * @return
-     * @author zhangchao
-     */
-    public ElasticSearchHandler getElasticSearchHandler() {
-        ElasticSearchHandler searcher = new ElasticSearchHandler(esconfig);
-        return searcher;
+        return esconfig;
     }
 
     public static void main(String[] agrs) {
-        APIESProcessor.getInstance().getElasticSearchHandler();
+        ElasticSearchHandler handler = null;
+        for (int i = 0; i < 100; i++) {
+            handler = APIESProcessor.getElasticSearchHandler();
+            System.out.println(handler.toString());
+        }
+
     }
 
 }

@@ -78,7 +78,7 @@ public class APISearchUtil {
      * @ApiDocMethod
      */
     public static long getAPICount() {
-        Client client = APIESProcessor.getInstance().getElasticSearchHandler().getClient();
+        Client client = APIESProcessor.getElasticSearchHandler().getClient();
         CountResponse countResponse = client.prepareCount(ElasticIndex.API.name().toLowerCase())
                 .setTypes(ElasticType.API_VERSION_NEW.name().toLowerCase()).execute().actionGet();
         long count = countResponse.getCount();
@@ -157,7 +157,7 @@ public class APISearchUtil {
      * @ApiDocMethod
      */
     public static SearchResponse searchAPIsHighLight(APISearchKey searchKey, int start, int end) {
-        Client client = APIESProcessor.getInstance().getElasticSearchHandler().getClient();
+        Client client = APIESProcessor.getElasticSearchHandler().getClient();
         BoolQueryBuilder builder = boolQuery();
         String ownerType = searchKey.getOwnerType();
         String owner = searchKey.getOwner();
@@ -227,7 +227,7 @@ public class APISearchUtil {
      * @ApiDocMethod
      */
     public static String getAPIVersionHistory(String apiDetailIndexId) {
-        Client client = APIESProcessor.getInstance().getElasticSearchHandler().getClient();
+        Client client = APIESProcessor.getElasticSearchHandler().getClient();
         SearchResponse response = client.prepareSearch(ElasticIndex.API.name().toLowerCase())
                 .setTypes(ElasticType.API_VERSION_HISTORY.name().toLowerCase())
                 .setQuery(termQuery("_id", apiDetailIndexId)).execute().actionGet();
@@ -246,7 +246,7 @@ public class APISearchUtil {
      * @ApiDocMethod
      */
     public static String getAPIVersionNew(String apiDetailIndexId) {
-        Client client = APIESProcessor.getInstance().getElasticSearchHandler().getClient();
+        Client client = APIESProcessor.getElasticSearchHandler().getClient();
         SearchResponse response = client.prepareSearch(ElasticIndex.API.name().toLowerCase())
                 .setTypes(ElasticType.API_VERSION_NEW.name().toLowerCase())
                 .setQuery(termQuery("_id", apiDetailIndexId)).execute().actionGet();
@@ -265,7 +265,7 @@ public class APISearchUtil {
      * @ApiDocMethod
      */
     public static String getAPIClassDetail(String apiParamIndexId) {
-        Client client = APIESProcessor.getInstance().getElasticSearchHandler().getClient();
+        Client client = APIESProcessor.getElasticSearchHandler().getClient();
         SearchResponse response = client.prepareSearch(ElasticIndex.API.name().toLowerCase())
                 .setTypes(ElasticType.CLASS_DETAIL.name().toLowerCase())
                 .setQuery(termQuery("_id", apiParamIndexId)).execute().actionGet();
@@ -284,7 +284,7 @@ public class APISearchUtil {
      * @ApiDocMethod
      */
     public static List<APIOwnerDoc> getAPIOwnerDocs(String ownerType) {
-        Client client = APIESProcessor.getInstance().getElasticSearchHandler().getClient();
+        Client client = APIESProcessor.getElasticSearchHandler().getClient();
         BoolQueryBuilder builder = boolQuery();
         if (!StringUtils.isBlank(ownerType)) {
             builder.must(termQuery("ownerType", ownerType.toLowerCase()));
@@ -319,7 +319,7 @@ public class APISearchUtil {
      */
     private static List<APIDoc> getAPIVersionHistoryDocs(String ownerType, String owner,
             String interfaceName, String methodName) {
-        Client client = APIESProcessor.getInstance().getElasticSearchHandler().getClient();
+        Client client = APIESProcessor.getElasticSearchHandler().getClient();
         BoolQueryBuilder builder = QueryBuilders.boolQuery();
         if (!StringUtils.isBlank(ownerType)) {
             builder.must(QueryBuilders.termQuery("ownerType", ownerType.toLowerCase()));
@@ -352,7 +352,7 @@ public class APISearchUtil {
 
     public static List<APIDoc> getAPIVersionNewDocs(String ownerType, String owner,
             String interfaceName, String methodName) {
-        Client client = APIESProcessor.getInstance().getElasticSearchHandler().getClient();
+        Client client = APIESProcessor.getElasticSearchHandler().getClient();
         BoolQueryBuilder builder = QueryBuilders.boolQuery();
         if (!StringUtils.isBlank(ownerType)) {
             builder.must(QueryBuilders.termQuery("ownerType", ownerType.toLowerCase()));
@@ -393,7 +393,7 @@ public class APISearchUtil {
      * @ApiDocMethod
      */
     public static long getAPICount(String ownerType, String owner) {
-        Client client = APIESProcessor.getInstance().getElasticSearchHandler().getClient();
+        Client client = APIESProcessor.getElasticSearchHandler().getClient();
         BoolQueryBuilder builder = QueryBuilders.boolQuery();
         if (!StringUtils.isBlank(ownerType)) {
             builder.must(QueryBuilders.termQuery("ownerType", ownerType.toLowerCase()));
@@ -417,7 +417,7 @@ public class APISearchUtil {
      * @author zhangchao
      */
     public static long getAPICountUnThrowsCallerException(String ownerType, String owner) {
-        Client client = APIESProcessor.getInstance().getElasticSearchHandler().getClient();
+        Client client = APIESProcessor.getElasticSearchHandler().getClient();
         BoolQueryBuilder builder = QueryBuilders.boolQuery();
         if (!StringUtils.isBlank(ownerType)) {
             builder.must(QueryBuilders.termQuery("ownerType", ownerType.toLowerCase()));
@@ -509,7 +509,7 @@ public class APISearchUtil {
 
     public static List<APIClassDoc> getAPIsClassDocData(String ownerType, String owner,
             String artifactId) {
-        Client client = APIESProcessor.getInstance().getElasticSearchHandler().getClient();
+        Client client = APIESProcessor.getElasticSearchHandler().getClient();
         BoolQueryBuilder builder = QueryBuilders.boolQuery();
         if (!StringUtils.isBlank(ownerType)) {
             builder.must(QueryBuilders.termQuery("ownerType", ownerType.toLowerCase()));

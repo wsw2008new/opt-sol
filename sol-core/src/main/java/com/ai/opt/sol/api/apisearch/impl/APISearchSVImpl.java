@@ -88,7 +88,7 @@ public class APISearchSVImpl implements IAPISearchSV {
         if (pageInfo == null) {
             throw new SystemException("查询服务出错：分页参数为空");
         }
-        ElasticSearchHandler searcher = APIESProcessor.getInstance().getElasticSearchHandler();
+        ElasticSearchHandler searcher = APIESProcessor.getElasticSearchHandler();
         SearchResponse response = APISearchUtil.searchAPIsHighLight(searchKey,
                 pageInfo.getStartRowIndex() - 1, pageInfo.getEndRowIndex());
         SearchHits hits = response.getHits();
@@ -211,7 +211,7 @@ public class APISearchSVImpl implements IAPISearchSV {
         if (StringUtil.isBlank(indexId)) {
             throw new SystemException("作废服务失败：没有传入索引信息");
         }
-        Client client = APIESProcessor.getInstance().getElasticSearchHandler().getClient();
+        Client client = APIESProcessor.getElasticSearchHandler().getClient();
         client.prepareDelete(ElasticIndex.API.name().toLowerCase(),
                 ElasticType.API_VERSION_NEW.name().toLowerCase(), indexId).execute().actionGet();
     }
