@@ -16,6 +16,7 @@ public final class APIESProcessor {
 
     private APIESProcessor() {
         // 禁止实例化
+        
     }
 
     public static ElasticSearchHandler getElasticSearchHandler() {
