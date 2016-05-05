@@ -7,6 +7,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import com.ai.opt.sol.api.apisearch.param.APIEnvSettings;
 import com.ai.opt.sol.api.apisearch.param.APIOwnerType;
 import com.ai.opt.sol.api.apisearch.param.APISearchKey;
 import com.ai.opt.sol.api.apisearch.param.APISearchResult;
@@ -105,5 +106,37 @@ public interface IAPISearchSV {
      */
     String downloadAPI(String ownerType, String owner, String artifactId, String interfaceName,
             String method) throws CallerException;
+
+    /**
+     * 保存API调用者设置
+     * 
+     * @param envSettings
+     * @throws CallerException
+     * @author zhangchao
+     * @ApiDocMethod
+     */
+    void saveAPIEnvSettings(APIEnvSettings envSettings) throws CallerException;
+
+    /**
+     * 获取指定的服务提供者的环境设置
+     * 
+     * @param ownerType
+     * @param owner
+     * @return
+     * @throws Exception
+     * @author zhangchao
+     * @ApiDocMethod
+     */
+    List<APIEnvSettings> getAPIEnvSettings(String ownerType, String owner) throws CallerException;
+
+    /**
+     * 获取所有服务提供者环境设置列表
+     * 
+     * @return
+     * @throws CallerException
+     * @author zhangchao
+     * @ApiDocMethod
+     */
+    List<APIEnvSettings> getAllAPIEnvSettings() throws CallerException;
 
 }

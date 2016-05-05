@@ -10,10 +10,7 @@ import com.ai.opt.sol.dao.mapper.interfaces.ApiCallCaseMapper;
 import com.ai.opt.sol.dao.mapper.interfaces.ApiCallCaseReqParamMapper;
 import com.ai.opt.sol.dao.mapper.interfaces.ApiCallSettingMapper;
 import com.ai.opt.sol.dao.mapper.interfaces.ApiCallSettingReqMapper;
-import com.ai.opt.sol.dao.mapper.interfaces.ApiDesignDocMapper;
-import com.ai.opt.sol.dao.mapper.interfaces.OptUpgradeTaskMapper;
-import com.ai.opt.sol.dao.mapper.interfaces.SonarCaseMapper;
-import com.ai.opt.sol.dao.mapper.interfaces.SonarRuleMapper;
+import com.ai.opt.sol.dao.mapper.interfaces.ApiEnvSettingsMapper;
 
 @Component
 public class MapperFactory {
@@ -32,16 +29,8 @@ public class MapperFactory {
         MapperFactory.st = sqlSessionTemplate;
     }
 
-    public static ApiDesignDocMapper getApiDesignDocMapper() {
-        return st.getMapper(ApiDesignDocMapper.class);
-    }
-
-    public static SonarCaseMapper getSonarCaseMapper() {
-        return st.getMapper(SonarCaseMapper.class);
-    }
-
-    public static SonarRuleMapper getSonarRuleMapper() {
-        return st.getMapper(SonarRuleMapper.class);
+    public static ApiEnvSettingsMapper getApiEnvSettingsMapper() {
+        return st.getMapper(ApiEnvSettingsMapper.class);
     }
 
     public static ApiCallSettingMapper getApiCallSettingMapper() {
@@ -58,10 +47,6 @@ public class MapperFactory {
 
     public static ApiCallCaseMapper getApiCallCaseMapper() {
         return st.getMapper(ApiCallCaseMapper.class);
-    }
-
-    public static OptUpgradeTaskMapper getOptUpgradeTaskMapper() {
-        return st.getMapper(OptUpgradeTaskMapper.class);
     }
 
 }

@@ -2,9 +2,7 @@ package com.ai.opt.sol.dao.mapper.interfaces;
 
 import com.ai.opt.sol.dao.mapper.bo.ApiCallSettingReq;
 import com.ai.opt.sol.dao.mapper.bo.ApiCallSettingReqCriteria;
-
 import java.util.List;
-
 import org.apache.ibatis.annotations.Param;
 
 public interface ApiCallSettingReqMapper {

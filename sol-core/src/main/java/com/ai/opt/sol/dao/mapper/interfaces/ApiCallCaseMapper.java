@@ -2,9 +2,7 @@ package com.ai.opt.sol.dao.mapper.interfaces;
 
 import com.ai.opt.sol.dao.mapper.bo.ApiCallCase;
 import com.ai.opt.sol.dao.mapper.bo.ApiCallCaseCriteria;
-
 import java.util.List;
-
 import org.apache.ibatis.annotations.Param;
 
 public interface ApiCallCaseMapper {

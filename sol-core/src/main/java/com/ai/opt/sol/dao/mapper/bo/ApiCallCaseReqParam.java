@@ -7,7 +7,7 @@ public class ApiCallCaseReqParam {
 
     private String caseId;
 
-    private Integer sort;
+    private int sort;
 
     private String javaType;
 
@@ -41,11 +41,11 @@ public class ApiCallCaseReqParam {
         this.caseId = caseId == null ? null : caseId.trim();
     }
 
-    public Integer getSort() {
+    public int getSort() {
         return sort;
     }
 
-    public void setSort(Integer sort) {
+    public void setSort(int sort) {
         this.sort = sort;
     }
 

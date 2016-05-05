@@ -9,7 +9,7 @@ public class ApiCallSettingReq {
 
     private String paramComment;
 
-    private Integer sort;
+    private int sort;
 
     private String javaType;
 
@@ -51,11 +51,11 @@ public class ApiCallSettingReq {
         this.paramComment = paramComment == null ? null : paramComment.trim();
     }
 
-    public Integer getSort() {
+    public int getSort() {
         return sort;
     }
 
-    public void setSort(Integer sort) {
+    public void setSort(int sort) {
         this.sort = sort;
     }
 

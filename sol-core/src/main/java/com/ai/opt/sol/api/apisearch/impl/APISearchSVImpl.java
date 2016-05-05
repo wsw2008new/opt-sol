@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.ai.opt.sol.api.apisearch.IAPISearchSV;
+import com.ai.opt.sol.api.apisearch.param.APIEnvSettings;
 import com.ai.opt.sol.api.apisearch.param.APIOwnerStatistics;
 import com.ai.opt.sol.api.apisearch.param.APIOwnerType;
 import com.ai.opt.sol.api.apisearch.param.APISearchKey;
@@ -24,11 +25,14 @@ import com.ai.opt.sol.api.apisearch.param.APISearchResult;
 import com.ai.opt.sol.api.apisearch.param.APIVersion;
 import com.ai.opt.sol.dao.mapper.bo.ApiCallSetting;
 import com.ai.opt.sol.dao.mapper.bo.ApiCallSettingReq;
+import com.ai.opt.sol.dao.mapper.bo.ApiEnvSettings;
+import com.ai.opt.sol.dao.mapper.bo.ApiEnvSettingsCriteria;
 import com.ai.opt.sol.model.APIDownloadFile;
 import com.ai.opt.sol.model.APIReqParamTemplate;
 import com.ai.opt.sol.model.APITemplate;
 import com.ai.opt.sol.service.atom.interfaces.IApiCallSettingAtomSV;
 import com.ai.opt.sol.service.atom.interfaces.IApiCallSettingReqAtomSV;
+import com.ai.opt.sol.service.atom.interfaces.IApiEnvSettingsAtomSV;
 import com.ai.opt.sol.util.APIESProcessor;
 import com.ai.opt.sol.util.APISearchUtil;
 import com.ai.paas.ipaas.dbs.util.CollectionUtil;
@@ -40,8 +44,10 @@ import com.ai.runner.apicollector.vo.ElasticType;
 import com.ai.runner.base.exception.CallerException;
 import com.ai.runner.base.exception.SystemException;
 import com.ai.runner.base.vo.PageInfo;
+import com.ai.runner.utils.constants.ExceptCodeConstants;
 import com.ai.runner.utils.util.BeanUtils;
 import com.ai.runner.utils.util.StringUtil;
+import com.ai.runner.utils.util.UUIDUtil;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.alibaba.fastjson.JSON;
 
@@ -54,6 +60,9 @@ public class APISearchSVImpl implements IAPISearchSV {
 
     @Autowired
     IApiCallSettingReqAtomSV iApiCallSettingReqAtomSV;
+
+    @Autowired
+    IApiEnvSettingsAtomSV iApiEnvSettingsAtomSV;
 
     @Override
     public List<APIOwnerType> getAPIOwnerTypes() throws CallerException {
@@ -322,6 +331,87 @@ public class APISearchSVImpl implements IAPISearchSV {
             }
         }
         return ts;
+    }
+
+    @Override
+    public void saveAPIEnvSettings(APIEnvSettings envSettings) throws CallerException {
+        if (envSettings == null) {
+            throw new CallerException(ExceptCodeConstants.Special.PARAM_IS_NULL, "API环境信息不能为空");
+        }
+        if (StringUtil.isBlank(envSettings.getOwnertype())) {
+            throw new CallerException(ExceptCodeConstants.Special.PARAM_IS_NULL, "API提供者类型不能为空");
+        }
+        if (StringUtil.isBlank(envSettings.getOwner())) {
+            throw new CallerException(ExceptCodeConstants.Special.PARAM_IS_NULL, "API提供者不能为空");
+        }
+        if (StringUtil.isBlank(envSettings.getEnv())) {
+            throw new CallerException(ExceptCodeConstants.Special.PARAM_IS_NULL, "环境标识不能为空");
+        }
+        if (StringUtil.isBlank(envSettings.getZkcenter())) {
+            throw new CallerException(ExceptCodeConstants.Special.PARAM_IS_NULL, "注册中心地址不能为空");
+        }
+        ApiEnvSettings record = new ApiEnvSettings();
+        record.setEnv(envSettings.getEnv());
+        record.setOwner(envSettings.getOwner());
+        record.setOwnertype(envSettings.getOwnertype());
+        record.setResthttp(envSettings.getResthttp());
+        record.setZkcenter(envSettings.getZkcenter());
+        if (StringUtil.isBlank(envSettings.getSettingsId())) {
+            record.setSettingsId(UUIDUtil.genId32());
+            iApiEnvSettingsAtomSV.insert(record);
+        } else {
+            record.setSettingsId(envSettings.getSettingsId());
+            iApiEnvSettingsAtomSV.updateByPrimaryKeySelective(record);
+        }
+
+    }
+
+    @Override
+    public List<APIEnvSettings> getAPIEnvSettings(String ownerType, String owner)
+            throws CallerException {
+        if (StringUtil.isBlank(ownerType)) {
+            throw new CallerException(ExceptCodeConstants.Special.PARAM_IS_NULL, "提供者类型不能为空");
+        }
+        if (StringUtil.isBlank(owner)) {
+            throw new CallerException(ExceptCodeConstants.Special.PARAM_IS_NULL, "提供者不能为空");
+        }
+        ApiEnvSettingsCriteria sql = new ApiEnvSettingsCriteria();
+        sql.or().andOwnerEqualTo(owner).andOwnertypeEqualTo(ownerType);
+        List<ApiEnvSettings> list = iApiEnvSettingsAtomSV.selectByExample(sql);
+        List<APIEnvSettings> l = new ArrayList<APIEnvSettings>();
+        if (!CollectionUtil.isEmpty(list)) {
+            for (ApiEnvSettings o : list) {
+                APIEnvSettings b = new APIEnvSettings();
+                b.setEnv(o.getEnv());
+                b.setOwner(o.getOwner());
+                b.setOwnertype(o.getOwnertype());
+                b.setResthttp(o.getResthttp());
+                b.setSettingsId(o.getSettingsId());
+                b.setZkcenter(o.getZkcenter());
+                l.add(b);
+            }
+        }
+        return l;
+    }
+
+    @Override
+    public List<APIEnvSettings> getAllAPIEnvSettings() throws CallerException {
+        ApiEnvSettingsCriteria sql = new ApiEnvSettingsCriteria();
+        List<ApiEnvSettings> list = iApiEnvSettingsAtomSV.selectByExample(sql);
+        List<APIEnvSettings> l = new ArrayList<APIEnvSettings>();
+        if (!CollectionUtil.isEmpty(list)) {
+            for (ApiEnvSettings o : list) {
+                APIEnvSettings b = new APIEnvSettings();
+                b.setEnv(o.getEnv());
+                b.setOwner(o.getOwner());
+                b.setOwnertype(o.getOwnertype());
+                b.setResthttp(o.getResthttp());
+                b.setSettingsId(o.getSettingsId());
+                b.setZkcenter(o.getZkcenter());
+                l.add(b);
+            }
+        }
+        return l;
     }
 
 }

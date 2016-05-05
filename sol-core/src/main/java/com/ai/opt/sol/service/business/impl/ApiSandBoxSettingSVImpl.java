@@ -24,6 +24,7 @@ import com.ai.opt.sol.service.atom.interfaces.IApiCallCaseAtomSV;
 import com.ai.opt.sol.service.atom.interfaces.IApiCallCaseReqParamAtomSV;
 import com.ai.opt.sol.service.atom.interfaces.IApiCallSettingAtomSV;
 import com.ai.opt.sol.service.atom.interfaces.IApiCallSettingReqAtomSV;
+import com.ai.opt.sol.service.atom.interfaces.IApiEnvSettingsAtomSV;
 import com.ai.opt.sol.service.business.interfaces.IApiSandBoxSettingSV;
 import com.ai.opt.sol.util.APISearchUtil;
 import com.ai.paas.ipaas.dbs.util.CollectionUtil;
@@ -50,6 +51,9 @@ public class ApiSandBoxSettingSVImpl implements IApiSandBoxSettingSV {
 
     @Autowired
     private IApiCallCaseAtomSV iApiCallCaseAtomSV;
+
+    @Autowired
+    private IApiEnvSettingsAtomSV iApiEnvSettingsAtomSV;
 
     @Override
     public List<APICallCase> getAPICallCases(String interfaceName, String method) {

@@ -344,32 +344,32 @@ public class ApiCallCaseReqParamCriteria {
             return (Criteria) this;
         }
 
-        public Criteria andSortEqualTo(Integer value) {
+        public Criteria andSortEqualTo(int value) {
             addCriterion("sort =", value, "sort");
             return (Criteria) this;
         }
 
-        public Criteria andSortNotEqualTo(Integer value) {
+        public Criteria andSortNotEqualTo(int value) {
             addCriterion("sort <>", value, "sort");
             return (Criteria) this;
         }
 
-        public Criteria andSortGreaterThan(Integer value) {
+        public Criteria andSortGreaterThan(int value) {
             addCriterion("sort >", value, "sort");
             return (Criteria) this;
         }
 
-        public Criteria andSortGreaterThanOrEqualTo(Integer value) {
+        public Criteria andSortGreaterThanOrEqualTo(int value) {
             addCriterion("sort >=", value, "sort");
             return (Criteria) this;
         }
 
-        public Criteria andSortLessThan(Integer value) {
+        public Criteria andSortLessThan(int value) {
             addCriterion("sort <", value, "sort");
             return (Criteria) this;
         }
 
-        public Criteria andSortLessThanOrEqualTo(Integer value) {
+        public Criteria andSortLessThanOrEqualTo(int value) {
             addCriterion("sort <=", value, "sort");
             return (Criteria) this;
         }
@@ -384,12 +384,12 @@ public class ApiCallCaseReqParamCriteria {
             return (Criteria) this;
         }
 
-        public Criteria andSortBetween(Integer value1, Integer value2) {
+        public Criteria andSortBetween(int value1, int value2) {
             addCriterion("sort between", value1, value2, "sort");
             return (Criteria) this;
         }
 
-        public Criteria andSortNotBetween(Integer value1, Integer value2) {
+        public Criteria andSortNotBetween(int value1, int value2) {
             addCriterion("sort not between", value1, value2, "sort");
             return (Criteria) this;
         }
