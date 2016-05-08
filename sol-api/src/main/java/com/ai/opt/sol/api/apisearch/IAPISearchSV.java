@@ -130,6 +130,17 @@ public interface IAPISearchSV {
     List<APIEnvSettings> getAPIEnvSettings(String ownerType, String owner) throws CallerException;
 
     /**
+     * 获取单个环境设置信息
+     * 
+     * @param settingId
+     * @return
+     * @throws CallerException
+     * @author zhangchao
+     * @ApiDocMethod
+     */
+    APIEnvSettings getAPIEnvSetting(String settingId) throws CallerException;
+
+    /**
      * 获取所有服务提供者环境设置列表
      * 
      * @return

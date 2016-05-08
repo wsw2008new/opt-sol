@@ -414,4 +414,28 @@ public class APISearchSVImpl implements IAPISearchSV {
         return l;
     }
 
+    @Override
+    public APIEnvSettings getAPIEnvSetting(String settingId) throws CallerException {
+        if (StringUtil.isBlank(settingId)) {
+            throw new CallerException(ExceptCodeConstants.Special.PARAM_IS_NULL, "设置ID不能为空");
+        }
+        ApiEnvSettingsCriteria sql = new ApiEnvSettingsCriteria();
+        sql.or().andSettingsIdEqualTo(settingId);
+        List<ApiEnvSettings> list = iApiEnvSettingsAtomSV.selectByExample(sql);
+        List<APIEnvSettings> l = new ArrayList<APIEnvSettings>();
+        if (!CollectionUtil.isEmpty(list)) {
+            for (ApiEnvSettings o : list) {
+                APIEnvSettings b = new APIEnvSettings();
+                b.setEnv(o.getEnv());
+                b.setOwner(o.getOwner());
+                b.setOwnertype(o.getOwnertype());
+                b.setResthttp(o.getResthttp());
+                b.setSettingsId(o.getSettingsId());
+                b.setZkcenter(o.getZkcenter());
+                l.add(b);
+            }
+        }
+        return l.size() == 0 ? null : l.get(0);
+    }
+
 }
