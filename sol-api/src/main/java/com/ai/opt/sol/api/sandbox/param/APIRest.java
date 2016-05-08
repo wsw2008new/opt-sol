@@ -9,6 +9,8 @@ public class APIRest implements Serializable {
 
     private String owner;
 
+    private String ownerType;
+
     private String interfaceName;
 
     private String methodName;
@@ -107,4 +109,14 @@ public class APIRest implements Serializable {
         this.restParams = restParams;
     }
 
+    public String getOwnerType() {
+        return ownerType;
+    }
+
+    public void setOwnerType(String ownerType) {
+        this.ownerType = ownerType;
+    }
+
+    
+    
 }
