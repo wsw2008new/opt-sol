@@ -409,6 +409,7 @@ public class APISearchSVImpl implements IAPISearchSV {
                 b.setResthttp(o.getResthttp());
                 b.setSettingsId(o.getSettingsId());
                 b.setZkcenter(o.getZkcenter());
+                b.setMonitor(o.getMonitor());
                 l.add(b);
             }
         }
@@ -433,6 +434,7 @@ public class APISearchSVImpl implements IAPISearchSV {
                 b.setResthttp(o.getResthttp());
                 b.setSettingsId(o.getSettingsId());
                 b.setZkcenter(o.getZkcenter());
+                b.setMonitor(o.getMonitor());
                 l.add(b);
             }
         }
