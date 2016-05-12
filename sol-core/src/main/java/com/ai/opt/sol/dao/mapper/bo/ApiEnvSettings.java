@@ -13,6 +13,8 @@ public class ApiEnvSettings {
 
     private String resthttp;
 
+    private String monitor;
+
     public String getSettingsId() {
         return settingsId;
     }
@@ -59,5 +61,13 @@ public class ApiEnvSettings {
 
     public void setResthttp(String resthttp) {
         this.resthttp = resthttp == null ? null : resthttp.trim();
+    }
+
+    public String getMonitor() {
+        return monitor;
+    }
+
+    public void setMonitor(String monitor) {
+        this.monitor = monitor == null ? null : monitor.trim();
     }
 }

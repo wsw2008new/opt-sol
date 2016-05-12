@@ -543,6 +543,76 @@ public class ApiEnvSettingsCriteria {
             addCriterion("resthttp not between", value1, value2, "resthttp");
             return (Criteria) this;
         }
+
+        public Criteria andMonitorIsNull() {
+            addCriterion("monitor is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMonitorIsNotNull() {
+            addCriterion("monitor is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMonitorEqualTo(String value) {
+            addCriterion("monitor =", value, "monitor");
+            return (Criteria) this;
+        }
+
+        public Criteria andMonitorNotEqualTo(String value) {
+            addCriterion("monitor <>", value, "monitor");
+            return (Criteria) this;
+        }
+
+        public Criteria andMonitorGreaterThan(String value) {
+            addCriterion("monitor >", value, "monitor");
+            return (Criteria) this;
+        }
+
+        public Criteria andMonitorGreaterThanOrEqualTo(String value) {
+            addCriterion("monitor >=", value, "monitor");
+            return (Criteria) this;
+        }
+
+        public Criteria andMonitorLessThan(String value) {
+            addCriterion("monitor <", value, "monitor");
+            return (Criteria) this;
+        }
+
+        public Criteria andMonitorLessThanOrEqualTo(String value) {
+            addCriterion("monitor <=", value, "monitor");
+            return (Criteria) this;
+        }
+
+        public Criteria andMonitorLike(String value) {
+            addCriterion("monitor like", value, "monitor");
+            return (Criteria) this;
+        }
+
+        public Criteria andMonitorNotLike(String value) {
+            addCriterion("monitor not like", value, "monitor");
+            return (Criteria) this;
+        }
+
+        public Criteria andMonitorIn(List<String> values) {
+            addCriterion("monitor in", values, "monitor");
+            return (Criteria) this;
+        }
+
+        public Criteria andMonitorNotIn(List<String> values) {
+            addCriterion("monitor not in", values, "monitor");
+            return (Criteria) this;
+        }
+
+        public Criteria andMonitorBetween(String value1, String value2) {
+            addCriterion("monitor between", value1, value2, "monitor");
+            return (Criteria) this;
+        }
+
+        public Criteria andMonitorNotBetween(String value1, String value2) {
+            addCriterion("monitor not between", value1, value2, "monitor");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

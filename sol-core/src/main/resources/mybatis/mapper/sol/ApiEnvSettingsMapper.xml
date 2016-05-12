@@ -8,6 +8,7 @@
     <result column="env" property="env" jdbcType="VARCHAR" />
     <result column="zkcenter" property="zkcenter" jdbcType="VARCHAR" />
     <result column="resthttp" property="resthttp" jdbcType="VARCHAR" />
+    <result column="monitor" property="monitor" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -68,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    settings_id, ownerType, owner, env, zkcenter, resthttp
+    settings_id, ownerType, owner, env, zkcenter, resthttp, monitor
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ai.opt.sol.dao.mapper.bo.ApiEnvSettingsCriteria" >
     select
@@ -106,11 +107,11 @@
   </delete>
   <insert id="insert" parameterType="com.ai.opt.sol.dao.mapper.bo.ApiEnvSettings" >
     insert into api_env_settings (settings_id, ownerType, owner, 
-      env, zkcenter, resthttp
-      )
+      env, zkcenter, resthttp, 
+      monitor)
     values (#{settingsId,jdbcType=VARCHAR}, #{ownertype,jdbcType=VARCHAR}, #{owner,jdbcType=VARCHAR}, 
-      #{env,jdbcType=VARCHAR}, #{zkcenter,jdbcType=VARCHAR}, #{resthttp,jdbcType=VARCHAR}
-      )
+      #{env,jdbcType=VARCHAR}, #{zkcenter,jdbcType=VARCHAR}, #{resthttp,jdbcType=VARCHAR}, 
+      #{monitor,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.ai.opt.sol.dao.mapper.bo.ApiEnvSettings" >
     insert into api_env_settings
@@ -133,6 +134,9 @@
       <if test="resthttp != null" >
         resthttp,
       </if>
+      <if test="monitor != null" >
+        monitor,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="settingsId != null" >
@@ -152,6 +156,9 @@
       </if>
       <if test="resthttp != null" >
         #{resthttp,jdbcType=VARCHAR},
+      </if>
+      <if test="monitor != null" >
+        #{monitor,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -182,6 +189,9 @@
       <if test="record.resthttp != null" >
         resthttp = #{record.resthttp,jdbcType=VARCHAR},
       </if>
+      <if test="record.monitor != null" >
+        monitor = #{record.monitor,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -194,7 +204,8 @@
       owner = #{record.owner,jdbcType=VARCHAR},
       env = #{record.env,jdbcType=VARCHAR},
       zkcenter = #{record.zkcenter,jdbcType=VARCHAR},
-      resthttp = #{record.resthttp,jdbcType=VARCHAR}
+      resthttp = #{record.resthttp,jdbcType=VARCHAR},
+      monitor = #{record.monitor,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -217,6 +228,9 @@
       <if test="resthttp != null" >
         resthttp = #{resthttp,jdbcType=VARCHAR},
       </if>
+      <if test="monitor != null" >
+        monitor = #{monitor,jdbcType=VARCHAR},
+      </if>
     </set>
     where settings_id = #{settingsId,jdbcType=VARCHAR}
   </update>
@@ -226,7 +240,8 @@
       owner = #{owner,jdbcType=VARCHAR},
       env = #{env,jdbcType=VARCHAR},
       zkcenter = #{zkcenter,jdbcType=VARCHAR},
-      resthttp = #{resthttp,jdbcType=VARCHAR}
+      resthttp = #{resthttp,jdbcType=VARCHAR},
+      monitor = #{monitor,jdbcType=VARCHAR}
     where settings_id = #{settingsId,jdbcType=VARCHAR}
   </update>
 </mapper>
