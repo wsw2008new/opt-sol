@@ -356,6 +356,7 @@ public class APISearchSVImpl implements IAPISearchSV {
         record.setOwnertype(envSettings.getOwnertype());
         record.setResthttp(envSettings.getResthttp());
         record.setZkcenter(envSettings.getZkcenter());
+        record.setMonitor(envSettings.getMonitor());
         if (StringUtil.isBlank(envSettings.getSettingsId())) {
             record.setSettingsId(UUIDUtil.genId32());
             iApiEnvSettingsAtomSV.insert(record);
